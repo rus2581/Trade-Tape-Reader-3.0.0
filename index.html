@@ -848,12 +848,12 @@ try {
 const response = await fetch(url);
 if (!response.ok) throw new Error('HTTP ' + response.status);
 const data = await response.json();
-const symbolSet = new Set();
+const baseAssetSet = new Set();
 availableSymbols = data.symbols
 .filter(s => s.quoteAsset === 'USDT' && s.status === 'TRADING')
 .filter(s => {
-if (symbolSet.has(s.symbol)) return false;
-symbolSet.add(s.symbol);
+if (baseAssetSet.has(s.baseAsset)) return false;
+baseAssetSet.add(s.baseAsset);
 return true;
 })
 .map(s => ({
